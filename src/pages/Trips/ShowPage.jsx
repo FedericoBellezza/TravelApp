@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useTripContext } from "../../context/TripsContext";
 import { useEffect, useState } from "react";
+import Form from "../../components/Form";
 
 export default function ShowPage() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ export default function ShowPage() {
     person.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // if the trip is not found, display a message
+  // if trip is not found
   if (!trip) {
     return (
       <div className="container">
@@ -32,7 +33,7 @@ export default function ShowPage() {
     );
   }
 
-  // modal
+  // modal logic
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
 
@@ -45,10 +46,14 @@ export default function ShowPage() {
     setIsModalOpen(false);
   };
 
+  // rendering trip details
   return (
     <div className="container">
       <div className="row  m-5">
+        {/* title */}
         <h1 className="col-12 col-md-6">{trip.destination}</h1>
+
+        {/* searchbar */}
         <form className="d-flex col-12 col-md-6" role="search">
           <input
             type="text"
@@ -62,6 +67,10 @@ export default function ShowPage() {
           </button>
         </form>
       </div>
+
+      <Form id={"person"} value={{ personsOnTrip, setPersonsOnTrip, trip }} />
+
+      {/* persons list */}
       <ul>
         {filteredPersons.map((person) => (
           <li key={person.id}>
@@ -71,6 +80,8 @@ export default function ShowPage() {
           </li>
         ))}
       </ul>
+
+      {/* modal */}
       {isModalOpen && (
         <div>
           <h2>{selectedPerson.name}</h2>
