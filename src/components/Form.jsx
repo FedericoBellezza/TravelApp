@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useTripContext } from "../context/TripsContext";
 
 export default function Form({ value, id }) {
+  // display form
+  const [showForm, setShowForm] = useState(false);
+
   if (id == "person") {
     const { trips, persons } = useTripContext();
 
@@ -52,7 +55,10 @@ export default function Form({ value, id }) {
     return (
       <>
         {/* add person form */}
-        <form className="d-flex gap-3 mb-3" onSubmit={handleAddPerson}>
+        <form
+          className={showForm ? "d-flex gap-3 mb-3" : "d-none"}
+          onSubmit={handleAddPerson}
+        >
           <div className="row g-3 row-cols-1 row-cols-md-2">
             {/* nome */}
             <div>
@@ -111,10 +117,17 @@ export default function Form({ value, id }) {
             </div>
             {/* Bottone */}
             <button className="btn btn-primary  " type="submit">
-              Aggiungi Persona
+              Aggiungi partecipante
             </button>
           </div>
         </form>
+        <button
+          onClick={() => setShowForm(true)}
+          className={!showForm ? "btn btn-primary w-100 row  g-3" : "d-none"}
+          type="submit"
+        >
+          Aggiungi partecipante
+        </button>
       </>
     );
   }
@@ -156,8 +169,11 @@ export default function Form({ value, id }) {
     return (
       <>
         {/* add person form */}
-        <form className="d-flex gap-3" onSubmit={handleAddTrip}>
-          <div>
+        <form
+          className={showForm ? " row  g-3" : "d-none"}
+          onSubmit={handleAddTrip}
+        >
+          <div className="col-12 col-md-6 col-lg-4 col-xl-3">
             <input
               className="form-control"
               placeholder="Destinazione"
@@ -167,7 +183,7 @@ export default function Form({ value, id }) {
               required
             />
           </div>
-          <div>
+          <div className="col-12 col-md-6 col-lg-4 col-xl-3">
             <input
               className="form-control"
               placeholder="Durata in giorni"
@@ -177,7 +193,7 @@ export default function Form({ value, id }) {
               required
             />
           </div>
-          <div>
+          <div className="col-12 col-md-6 col-lg-4 col-xl-3">
             <input
               className="form-control"
               placeholder="Prezzo"
@@ -187,7 +203,7 @@ export default function Form({ value, id }) {
               required
             />
           </div>
-          <div>
+          <div className="col-12 col-md-6 col-lg-12 col-xl-3 ">
             <input
               className="form-control"
               placeholder="Immagine"
@@ -197,10 +213,19 @@ export default function Form({ value, id }) {
               required
             />
           </div>
-          <button className="btn btn-primary" type="submit">
-            Aggiungi viaggio
-          </button>
+          <div className="col-12 w-100">
+            <button className="btn btn-primary w-100" type="submit">
+              Aggiungi viaggio
+            </button>
+          </div>
         </form>
+        <button
+          onClick={() => setShowForm(true)}
+          className={!showForm ? "btn btn-primary w-100 row  g-3" : "d-none"}
+          type="submit"
+        >
+          Aggiungi viaggio
+        </button>
       </>
     );
   }

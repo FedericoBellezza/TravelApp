@@ -3,10 +3,10 @@ import HomePage from "../pages/HomePage";
 
 export default function Header() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary ">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          TravelApp
+          TravelApp✈
         </Link>
         <button
           className="navbar-toggler"

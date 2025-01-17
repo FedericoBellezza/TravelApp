@@ -66,33 +66,31 @@ export default function ShowPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button className="btn btn-light ms-3" type="submit">
-              Search
-            </button>
           </form>
         </div>
       </div>
 
       {/* main section */}
       <main className="container">
-        <div className="row  m-5"></div>
-
-        <Form id={"person"} value={{ personsOnTrip, setPersonsOnTrip, trip }} />
+        <div className="row my-3">
+          <Form
+            id={"person"}
+            value={{ personsOnTrip, setPersonsOnTrip, trip }}
+          />
+        </div>
 
         {/* persons list */}
-        <table class="table table-hover mt-5">
+        <table class="table table-hover my-5">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Cognome</th>
+              <th scope="col">Telefono</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-group-divider">
             {filteredPersons.map((person) => (
               <tr onClick={() => openModal(person)} key={person.id}>
-                <th scope="row">{person.id}</th>
                 <td>{person.name}</td>
                 <td>{person.surname}</td>
                 <td>{person.tel}</td>
