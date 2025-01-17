@@ -56,7 +56,7 @@ export default function Form({ value, id }) {
       <>
         {/* add person form */}
         <form
-          className={showForm ? "d-flex gap-3 mb-3" : "d-none"}
+          className={showForm ? "d-flex gap-3 mt-5" : "d-none"}
           onSubmit={handleAddPerson}
         >
           <div className="row g-3 row-cols-1 row-cols-md-2">
@@ -116,18 +116,22 @@ export default function Form({ value, id }) {
               />
             </div>
             {/* Bottone */}
-            <button className="btn btn-primary  " type="submit">
+            <button className="btn btn-primary" type="submit">
               Aggiungi partecipante
             </button>
           </div>
         </form>
-        <button
-          onClick={() => setShowForm(true)}
-          className={!showForm ? "btn btn-primary w-100 row  g-3" : "d-none"}
-          type="submit"
-        >
-          Aggiungi partecipante
-        </button>
+        <div className="container-fluid ">
+          <button
+            onClick={() => setShowForm(true)}
+            className={
+              !showForm ? "btn btn-primary w-100 row mt-3   g-3" : "d-none"
+            }
+            type="submit"
+          >
+            Aggiungi partecipante
+          </button>
+        </div>
       </>
     );
   }
