@@ -12,10 +12,17 @@ export default function Form({ value, id }) {
     const [personSurname, setPersonSurname] = useState("");
     const [personCodiceFiscale, setPersonCodiceFiscale] = useState("");
     const [personTel, setPersonTel] = useState("");
+    const [personMail, setPersonMail] = useState("");
 
     const handleAddPerson = (e) => {
       e.preventDefault();
-      if (!personName || !personSurname || !personCodiceFiscale) {
+      if (
+        !personName ||
+        !personSurname ||
+        !personCodiceFiscale ||
+        !personTel ||
+        !personMail
+      ) {
         alert("Tutti i campi devono essere compilati");
         return;
       }
@@ -26,6 +33,7 @@ export default function Form({ value, id }) {
         surname: personSurname,
         fiscal_code: personCodiceFiscale,
         destinazione: trip.destinazione,
+        email: personMail,
         tel: personTel,
       };
 
@@ -38,49 +46,74 @@ export default function Form({ value, id }) {
       setPersonSurname("");
       setPersonCodiceFiscale("");
       setPersonTel("");
+      setPersonMail("");
     };
 
     return (
       <>
         {/* add person form */}
         <form className="d-flex gap-3 mb-3" onSubmit={handleAddPerson}>
-          <div>
-            <label>Nome: </label>
-            <input
-              type="text"
-              value={personName}
-              onChange={(e) => setPersonName(e.target.value)}
-              required
-            />
+          <div className="row g-3 row-cols-1 row-cols-md-2">
+            {/* nome */}
+            <div>
+              <input
+                className="form-control"
+                placeholder="Nome"
+                type="text"
+                value={personName}
+                onChange={(e) => setPersonName(e.target.value)}
+                required
+              />
+            </div>
+            {/* cognome */}
+            <div>
+              <input
+                className="form-control"
+                placeholder="Cognome"
+                type="text"
+                value={personSurname}
+                onChange={(e) => setPersonSurname(e.target.value)}
+                required
+              />
+            </div>
+            {/* codice fiscale */}
+            <div>
+              <input
+                className="form-control"
+                placeholder="Codice Fiscale"
+                type="text"
+                value={personCodiceFiscale}
+                onChange={(e) => setPersonCodiceFiscale(e.target.value)}
+                required
+              />
+            </div>
+            {/* telefono */}
+            <div>
+              <input
+                className="form-control"
+                placeholder="Telefono"
+                type="text"
+                value={personTel}
+                onChange={(e) => setPersonTel(e.target.value)}
+                required
+              />
+            </div>
+            {/* email */}
+            <div>
+              <input
+                className="form-control"
+                placeholder="Email"
+                type="email"
+                value={personMail}
+                onChange={(e) => setPersonMail(e.target.value)}
+                required
+              />
+            </div>
+            {/* Bottone */}
+            <button className="btn btn-primary  " type="submit">
+              Aggiungi Persona
+            </button>
           </div>
-          <div>
-            <label>Cognome: </label>
-            <input
-              type="text"
-              value={personSurname}
-              onChange={(e) => setPersonSurname(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Codice Fiscale: </label>
-            <input
-              type="text"
-              value={personCodiceFiscale}
-              onChange={(e) => setPersonCodiceFiscale(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Telefono: </label>
-            <input
-              type="text"
-              value={personTel}
-              onChange={(e) => setPersonTel(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Aggiungi Persona</button>
         </form>
       </>
     );
@@ -93,6 +126,7 @@ export default function Form({ value, id }) {
     const [tripDestination, setTripDestination] = useState("");
     const [tripDuration, setTripDuration] = useState("");
     const [tripPrice, setTripPrice] = useState("");
+    const [tripImage, setTripImage] = useState("");
 
     const handleAddTrip = (e) => {
       e.preventDefault();
@@ -105,16 +139,18 @@ export default function Form({ value, id }) {
         destination: tripDestination,
         duration: tripDuration,
         price: tripPrice,
+        img: tripImage,
       };
 
       // add person logic
       trips.push(newTrip);
-      setDinamicTrips([...trips, newTrip]);
+      setDinamicTrips([...trips]);
 
       // Reset i campi del form
       setTripDestination("");
       setTripDuration("");
       setTripPrice("");
+      setTripImage("");
     };
 
     return (
@@ -122,8 +158,9 @@ export default function Form({ value, id }) {
         {/* add person form */}
         <form className="d-flex gap-3" onSubmit={handleAddTrip}>
           <div>
-            <label>Destinazione: </label>
             <input
+              className="form-control"
+              placeholder="Destinazione"
               type="text"
               value={tripDestination}
               onChange={(e) => setTripDestination(e.target.value)}
@@ -131,24 +168,38 @@ export default function Form({ value, id }) {
             />
           </div>
           <div>
-            <label>Durata: </label>
             <input
-              type="text"
+              className="form-control"
+              placeholder="Durata in giorni"
+              type="number"
               value={tripDuration}
               onChange={(e) => setTripDuration(e.target.value)}
               required
             />
           </div>
           <div>
-            <label>Prezzo: </label>
             <input
+              className="form-control"
+              placeholder="Prezzo"
               type="number"
               value={tripPrice}
               onChange={(e) => setTripPrice(e.target.value)}
               required
             />
           </div>
-          <button type="submit">Aggiungi viaggio</button>
+          <div>
+            <input
+              className="form-control"
+              placeholder="Immagine"
+              type="text"
+              value={tripImage}
+              onChange={(e) => setTripImage(e.target.value)}
+              required
+            />
+          </div>
+          <button className="btn btn-primary" type="submit">
+            Aggiungi viaggio
+          </button>
         </form>
       </>
     );

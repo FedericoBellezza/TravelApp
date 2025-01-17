@@ -13,16 +13,34 @@ export default function TripsPage() {
   }, []);
 
   return (
-    <div className="container">
-      <h1>Trips Page</h1>
-      <ul>
-        {dinamicTrips.map((trip) => (
-          <li key={trip.id}>
-            <Link to={`/trips/${trip.id}`}>{trip.destination}</Link>
-          </li>
-        ))}
+    <div className="container py-5 ">
+      <h1>Viaggi</h1>
+      <div className="my-5">
         <Form id={"trip"} value={{ setDinamicTrips, dinamicTrips }} />
-      </ul>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        {dinamicTrips.map((trip) => (
+          <Link to={`/trips/${trip.id}`} key={trip.id}>
+            <div class="card">
+              <img
+                src={trip.img}
+                class="card-img-top "
+                alt={trip.destination}
+              />
+              <div class="card-body ">
+                <h5 class="card-title fs-5">{trip.destination}</h5>
+                <p class="card-text">
+                  <strong>{trip.duration} giorni</strong> a {trip.price}€
+                </p>
+                {/* <Link to={`/trips/${trip.id}`} class="btn btn-primary">
+                  Go somewhere
+                </Link> */}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

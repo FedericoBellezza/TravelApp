@@ -38,6 +38,8 @@ export default function ShowPage() {
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   const openModal = (person) => {
+    console.log(person);
+
     setSelectedPerson(person);
     setIsModalOpen(true);
   };
@@ -48,49 +50,103 @@ export default function ShowPage() {
 
   // rendering trip details
   return (
-    <div className="container">
-      <div className="row  m-5">
-        {/* title */}
-        <h1 className="col-12 col-md-6">{trip.destination}</h1>
+    <>
+      {/* hero */}
+      <div className="hero" style={{ backgroundImage: `url(${trip.img})` }}>
+        <div className="container-fluid hero">
+          {/* title */}
+          <h1 className="col-12 col-md-6">{trip.destination}</h1>
 
-        {/* searchbar */}
-        <form className="d-flex col-12 col-md-6" role="search">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search for a person..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button className="btn btn-outline-success" type="submit">
-            Search
-          </button>
-        </form>
+          {/* searchbar */}
+          <form className="d-flex col-12 col-md-6" role="search">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Cerca per persona.."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button className="btn btn-light ms-3" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
       </div>
 
-      <Form id={"person"} value={{ personsOnTrip, setPersonsOnTrip, trip }} />
+      {/* main section */}
+      <main className="container">
+        <div className="row  m-5"></div>
 
-      {/* persons list */}
-      <ul>
-        {filteredPersons.map((person) => (
-          <li key={person.id}>
-            <button onClick={() => openModal(person)} className="btn btn-link">
-              {person.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+        <Form id={"person"} value={{ personsOnTrip, setPersonsOnTrip, trip }} />
 
-      {/* modal */}
-      {isModalOpen && (
-        <div>
-          <h2>{selectedPerson.name}</h2>
-          <p>{selectedPerson.email}</p>
-          <p>{selectedPerson.tel}</p>
-          <p>{selectedPerson.fiscal_code}</p>
-          <button onClick={closeModal}>Close</button>
-        </div>
-      )}
-    </div>
+        {/* persons list */}
+        <table class="table table-hover mt-5">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredPersons.map((person) => (
+              <tr onClick={() => openModal(person)} key={person.id}>
+                <th scope="row">{person.id}</th>
+                <td>{person.name}</td>
+                <td>{person.surname}</td>
+                <td>{person.tel}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {isModalOpen && selectedPerson && (
+          <div
+            className="modal fade show d-block"
+            tabIndex="-1"
+            role="dialog"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Dettagli partecipante</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={closeModal}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    <strong>Nome:</strong> {selectedPerson.name}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {selectedPerson.email}
+                  </p>
+                  <p>
+                    <strong>Telefono:</strong> {selectedPerson.tel}
+                  </p>
+                  <p>
+                    <strong>Codice Fiscale:</strong>{" "}
+                    {selectedPerson.fiscal_code}
+                  </p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={closeModal}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
+    </>
   );
 }
