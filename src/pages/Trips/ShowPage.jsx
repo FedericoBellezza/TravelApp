@@ -20,8 +20,10 @@ export default function ShowPage() {
     }
   }, [trip, persons]);
 
-  const filteredPersons = personsOnTrip.filter((person) =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPersons = personsOnTrip.filter(
+    (person) =>
+      person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      person.surname.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // if trip is not found
